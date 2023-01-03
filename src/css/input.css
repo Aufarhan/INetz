@@ -1,0 +1,403 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
+
+@layer components {
+  :root {
+    --cool-grey: rgb(237, 242, 244);
+    --steel-blue: rgb(191, 215, 255);
+    --neon-blue: rgb(84, 101, 255);
+    --box-shadow: 2px 2px 10px 2px rgba(201, 201, 201, 0.671);
+  }
+  .mobile-menu {
+    left: -200%;
+    transition: 0.5s;
+  }
+
+  .mobile-menu.active {
+    left: 0;
+  }
+
+  .mobile-menu ul li ul {
+    display: none;
+  }
+
+  .nav-link {
+    color: green;
+  }
+
+  .nav-item > a:hover {
+    color: green;
+  }
+
+  /*code to change background color*/
+  .navbar-nav > .active > a {
+    color: #ea9797;
+    font-weight: 800;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Nunito", sans-serif;
+  }
+
+  body {
+    background-color: var(--cool-grey);
+    overflow: auto;
+  }
+
+  .burger {
+    display: none;
+    cursor: pointer;
+  }
+
+  .burger div {
+    width: 25px;
+    height: 3px;
+    margin: 5px;
+    border-radius: 10rem;
+    background-color: var(--neon-blue);
+    transition: all 0.7s ease;
+  }
+
+  .blue {
+    color: var(--neon-blue);
+  }
+
+  .jumbotron {
+    margin: 2rem;
+    text-align: center;
+  }
+
+  /* .search p,
+  .browse h2,
+  .watchSection h2 {
+    color: var(--neon-blue);
+    font-size: 1.75rem;
+    margin: 0.5rem;
+  } */
+
+  /* form input,
+  form button {
+  } */
+
+  form button {
+  }
+
+  .browse,
+  .watchSection {
+    display: flex;
+    align-items: unset;
+    text-size: 2rem;
+    justify-content: space-between;
+    margin: 0 2rem;
+  }
+
+  /* .section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    margin: 0.5rem;
+  } */
+
+  .browseHR,
+  .watchHR {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 2.5rem;
+  }
+
+  /* .section select,
+  .section option {
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+  } */
+
+  /* Display Movies */
+  /* Display Movies */
+  /* .result,
+  .movieRecommendations,
+  .trending,
+  .showTrending,
+  .watchlist {
+    margin: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: unset;
+    justify-content: center;
+    flex-wrap: wrap;
+  } */
+
+  /* .movie {
+    margin: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.25rem;
+    width: min-content;
+    height: 100%;
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+  } */
+  /* 
+  .movie .image,
+  .movieImage img {
+    border-radius: 00.75rem;
+    display: block;
+    transition: transform 0.7s ease;
+    min-width: 211px;
+    max-width: 111px;
+    min-height: 286px;
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .movie .image:hover,
+  .movieImage img:hover {
+    transform: scale(1.02);
+  } */
+
+  /* .movie button,
+  .prevBtn,
+  .nextBtn {
+    margin: 0.5rem 1rem;
+    padding: 0.25rem;
+    font-size: 0.75rem;
+    background-color: var(--neon-blue);
+    color: white;
+    outline: none;
+    border: none;
+    cursor: pointer;
+  } */
+  /* 
+  button.detailsButton,
+  .movie .title {
+    margin: 0.5rem;
+  } */
+
+  /* .ratingFlex {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin: 0.5rem;
+  }
+
+  .ratingFlex .title {
+    padding: 0;
+    margin: 0;
+  }
+
+  .rating {
+    background-color: var(--cool-grey);
+    border: 1px solid var(--neon-blue);
+    padding: 0.15rem 0.5rem;
+    margin: 0 0.5rem;
+  } */
+
+  /* .pagination {
+    text-align: center;
+    margin: 0 auto;
+    color: var(--neon-blue);
+    font-weight: bold;
+  } */
+
+  /* .prevBtn,
+  .nextBtn {
+    margin: 0.5rem;
+    padding: 0.25rem 0.5rem;
+  } */
+
+  /* DETAILS */
+  /* .movieContainer {
+    margin: 1rem 2rem;
+  } */
+
+  /* .movieTitle {
+    margin: 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .movieTitle p {
+    color: var(--neon-blue);
+    font-size: 2rem;
+    font-weight: 700;
+  } */
+
+  /* .movieWrapper {
+    margin: 1rem;
+    padding: 1rem;
+    background-color: var(--steel-blue);
+    box-shadow: var(--box-shadow);
+    border: 1px solid var(--neon-blue);
+  } */
+
+  /* .movieFlex {
+    display: flex;
+  } */
+
+  /* .movieImage img {
+    min-width: 320px;
+    margin: 0.5rem;
+    vertical-align: middle;
+    box-shadow: var(--box-shadow);
+  } */
+
+  /* .movieDetails, */
+  /* .moviePeople {
+    margin: 0 0.5rem 0.5rem 1rem;
+  } */
+
+  /* .moviePlot {
+    margin: 0.5rem;
+    text-align: justify;
+  } */
+
+  /* .movieDetails h2,
+  .moviePlot h2,
+  .moviePeople h2 {
+    color: var(--neon-blue);
+  }
+
+  .movieDetails p,
+  .moviePlot p,
+  .moviePeople p {
+    margin-top: 0.25rem;
+  } */
+
+  /* .movieDetails > hr,
+  .moviePlot > hr,
+  .moviePeople > hr, */
+  /* .castHR,
+  .recommHR,
+  .reviewHR,
+  .browseHR,
+  .watchHR,
+  .contentHR {
+    border-width: 0;
+    height: 0.01rem;
+    background-color: rgba(141, 153, 174, 0.726);
+  } */
+
+  button.watched {
+    background-color: rgba(84, 101, 255, 0.4);
+    cursor: not-allowed;
+  }
+
+  /* Recommendations */
+
+  .hideRecomm {
+    display: none;
+  }
+
+  /* .movieRecommendations,
+  .movieReviews {
+    margin: 1rem 3rem 1rem;
+  } */
+
+  /* .recommTitle,
+  .reviewTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 1rem 3rem 0rem;
+    color: var(--neon-blue);
+  } */
+
+  /* .recommHR,
+  .reviewHR {
+    margin: 0 3rem;
+  } */
+
+  /* .recommImage {
+    min-width: 185px;
+    min-height: 278px;
+    transition: transform 0.7s ease;
+    font-size: 1rem;
+    text-align: center;
+    vertical-align: middle;
+  } */
+
+  .movie .recommImage:hover {
+    transform: scale(1.05);
+  }
+
+  /* REVIEWS */
+  .reviews {
+    margin: 1rem 0;
+  }
+
+  /* .rrbuttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 3rem;
+  } */
+
+  /* .reviewButton,
+  .recommButton,
+  .watchButton {
+    padding: 0.5rem;
+    background-color: var(--neon-blue);
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    border: none;
+  } */
+
+  .hideReview {
+    display: none;
+  }
+
+  /* .reviewDetails {
+    margin: 1rem 0;
+  }
+
+  .reviewFlex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .reviewDetails .content {
+    margin: 1rem;
+    text-align: justify;
+  }
+
+  .reviewDetails .author {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .reviewDetails .date {
+    font-size: 0.75rem;
+  } */
+
+  /* Footer */
+  html {
+    position: relative;
+  }
+
+  body {
+    min-height: 100vh;
+    padding-bottom: 5rem;
+  }
+
+  /* .footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    border-top: 2px solid var(--neon-blue);
+    background-color: var(--steel-blue);
+    color: var(--neon-blue);
+    font-weight: bold;
+    text-align: center;
+  } */
+}

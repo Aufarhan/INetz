@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./public/css/style.css" />
+    <style> @import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap'); </style>
+    <title>INETZ</title>
+  </head>
+
+  <body>
+    <!-- NavBar Starts -->
+    <header class=" relative">
+      <nav class="fixed top-0 left-0 right-0 h-20 bg-white z-50 px-2 py-4">
+        <div class="px-4 mx-auto relative flex items-center">
+          <div>
+            <a href="/index.html">
+              <h1 class="text-3xl text-red-500 font-bold">INETZ</h1>
+          </a>
+          </div>
+          <div class="pl-10 pt-2 md:flex space-x-6 hidden lg:text-sm">
+            <ul class="navbar-nav flex space-x-7">
+              <li class="nav-item active"><a href="/index.html" class="text-base">Home</a></li>
+              <li><a href="/movie.html" class="text-base">Movie</a></li>
+              <li><a href="/trending.html" class="text-base">Trending</a></li>
+              <li><a href="/watchlist.html" class="text-base">My Watchlist</a></li>
+              <li><a href="#" class="text-base">Anime</a></li>
+            </ul>
+            <!-- <select name="genre" class="appearance-none block text-base text-black pl-2 w-52 focus:bg-primary focus:text-white" id="genre" onchange="movieGenre(this)">
+              <option selected value="">Genre</option>
+              <option value="Action">Action</option>
+              <option value="Drama">Drama</option>
+              <option value="Comedy">Comedy</option>
+              <option value="Horror">Horror</option>
+              <option value="Thriller">Thriller</option>
+            </select> -->
+          </div>
+          <button class="right-0 absolute pt-2 md:block">
+            <!-- <a href="/search.html"> -->
+          <div>
+            <form id="searchForm">
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg aria-hidden="true" class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </div>
+                <input type="search" id="searchInput" autocomplete="off" class="block rounded-full shadow-lg w-80 p-3 pl-12 text-sm text-gray-900 border border-gray-300 rounded- bg-gray-50 focus:ring-blue-500 focus:border-blue-500 " placeholder="Search Films..." required>
+              </div>
+            </form>
+          </div>
+        <!-- </a> -->
+        </button>
+      </nav>
+    </header>
+    <!-- Navbar Ends -->
+    <!-- <div class="result">
+    </div> -->
+    <div class="searchfor  pt-20 mt-10"></div>
+
+    <div class="result flex flex-wrap justify-center mt-4"></div>
+
+    <div class="pagination text-center px-2 "></div>
+
+    <div class="browse">
+    </div>
+
+    <div class="browseHR">
+      <hr />
+    </div>
+
+    <div class="showTrending flex flex-wrap justify-center pt-10 mt-8"></div>
+
+    <footer class="footer w-full bg-primary h-[400px] absolute mt-10">
+      <div class="text-white pt-10 px-20">
+        <h3 class="font-bold text-xl pb-2">INETZ Trailer dan Detail</h3>
+        <p class="text-red-500">INETZ <span class="text-white">adalah website untuk melihat trailer dan details film saja karena situs ini tidak memiliki resmi untuk  menayangkan film yang anda cari, karena kalo tidak resmi itu disebut ilegal dan melanggar peraturan diperfilm-an. Situs kami ini benar - benar legal dikarenakan trailer yang kita ambil juga dari pihak ketiga seperti youtube dan yang lain nya.</span></p>
+      </div>
+  </footer>
+
+    <!-- Scripts -->
+    <script>
+      $(document).ready(() => {
+        $(".pagination").hide();
+      });
+      window.load = function () {
+        $(".pagination").hide();
+      };
+    </script>
+    <script>
+      const mobile_icon = document.getElementById("mobile-icon");
+      const mobile_menu = document.getElementById("mobile-menu");
+      const hamburger_icon = document.querySelector("#mobile-icon i");
+
+      function openCloseMenu() {
+        mobile_menu.classList.toggle("block");
+        mobile_menu.classList.toggle("active");
+      }
+
+      function changeIcon(icon) {
+        icon.classList.toggle("fa-xmark");
+      }
+
+      mobile_icon.addEventListener("click", openCloseMenu);
+    </script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="main.js"></script>
+  </body>
+</html>
