@@ -44,7 +44,7 @@
             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <svg aria-hidden="true" class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </div>
-            <input type="search" id="searchInput" autocomplete="off" class="block rounded-full shadow-lg w-80 p-3 pl-12 text-sm text-gray-900 border border-gray-700 bg-black focus:ring-blue-500 focus:border-blue-500 " placeholder="Search Films..." required>
+            <input type="search" id="searchInput" autocomplete="off" class="block md:w-80 w-50 rounded-full shadow-lg p-3 pl-12 text-sm text-gray-900 border border-gray-700 bg-black focus:ring-blue-500 focus:border-blue-500 " placeholder="Search Films..." required>
           </div>
         </form>
       </div>
@@ -53,15 +53,15 @@
   </nav>
 </header>
 <!-- Navbar Ends -->
-<div class="movieContainer"></div>
+<div class="movieContainer md:text-base text-sm"></div>
 
-    <div class="rrbuttons mt-0 flex right-0 absolute mx-7 space-x-3">
-      <button class="reviewButton bg-red-500  rounded-lg px-2 py-1" onclick="showHideReview()">Show Reviews</button>
-      <button class="recommButton bg-white text-black rounded-lg px-2 py-1" onclick="showHideRecomm()">Show Recommendations</button>
+    <div class="rrbuttons mt-0 flex md:right-0 ml-8 absolute md:mx-7 space-x-3">
+      <button class="reviewButton border-red-500 border text-red-500  rounded-lg px-2 py-1" onclick="showHideReview()">Show Reviews</button>
+      <button class="recommButton border-white border text-white rounded-lg px-2 py-1" onclick="showHideRecomm()">Show Recommendations</button>
     </div>
 
     <div class="recommendations hideRecomm">
-      <div class="recommTitle font-extrabold text-white pb-4 mt-4 text-center">Recommendations</div>
+      <div class="recommTitle font-extrabold text-white pb-4 md:mt-4 mt-14 text-center">Recommendations</div>
 
       <!-- <hr class="recommHR" /> -->
 
@@ -69,7 +69,7 @@
     </div>
 
     <div class="reviews hideReview">
-      <div class="reviewTitle font-extrabold text-white  pb-4 mt-4 text-center">Reviews</div>
+      <div class="reviewTitle font-extrabold text-white   pb-4 md:mt-4 mt-14 text-center">Reviews</div>
 
       <!-- <hr class="reviewHR" /> -->
 

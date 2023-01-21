@@ -14,11 +14,36 @@
     <!-- NavBar Starts -->
     <header class=" relative">
       <nav class="fixed top-0 left-0 right-0 h-20 bg-white z-50 px-2 py-4">
-        <div class="px-4 mx-auto relative flex items-center">
+        <section class="p-menu1 md:hidden block">
+          <a href="/index.html">
+            <h1 class="text-3xl text-red-500 font-bold absolute right-10 md:hidden block ml-6">INETZ</h1>
+        </a>
+          <nav id="navbar" class="navigation" role="navigation">
+            <input id="toggle1" type="checkbox" />
+            <label class="hamburger1" for="toggle1">
+              <div class="top"></div>
+              <div class="meat"></div>
+              <div class="bottom"></div>
+            </label>
+          
+            <nav class="menu1 bg-red-500 grid grid-row-2 list-none clear-both w-full shadow-xl  px-6 rounded-b-lg">
+                <a href="/search.html" class="relative mt-0">
+                  <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <svg aria-hidden="true" class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                  </div>
+                  <input type="search" autocomplete="off" class="md:hidden rounded-full shadow-lg w-80 p-3 pl-12 text-sm text-gray-900 border border-gray-300 rounded- bg-gray-50 focus:ring-blue-500 focus:border-blue-500 " placeholder="Search Films..." required>
+                </a>
+              <a class="link1 font-semibold text-white" href="/movie.html">Movie</a>
+              <a class="link1 font-semibold text-white" href="/trending.html">Trending</a>
+              <a class="link1 font-semibold text-white" href="/watchlist.html">My Watchlist</a>
+            </nav>
+        </nav>
+        </section>
+        <div class="px-4 mx-auto relative flex items-center p-1">
           <div>
             <a href="/index.html">
-              <h1 class="text-3xl text-red-500 font-bold">INETZ</h1>
-          </a>
+              <h1 class="text-3xl text-red-500 font-bold md:block hidden">INETZ</h1>
+            </a>
           </div>
           <div class="pl-10 pt-2 md:flex space-x-6 hidden lg:text-sm">
             <ul class="navbar-nav flex space-x-7">
@@ -44,7 +69,7 @@
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     <svg aria-hidden="true" class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </div>
-                <input type="search" id="searchInput" autocomplete="off" class="block rounded-full shadow-lg w-80 p-3 pl-12 text-sm text-gray-900 border border-gray-300 rounded- bg-gray-50 focus:ring-blue-500 focus:border-blue-500 " placeholder="Search Films..." required>
+                <input type="search" id="searchInput" autocomplete="off" class="md:block hidden rounded-full shadow-lg w-80 p-3 pl-12 text-sm text-gray-900 border border-gray-300 rounded- bg-gray-50 focus:ring-blue-500 focus:border-blue-500 " placeholder="Search Films..." required>
               </div>
             </form>
           </div>
@@ -55,17 +80,20 @@
     <!-- Navbar Ends -->
 
     <div class="watchSection pt-32">
-      <h2 class="pt-8 ml-4 text-5xl font-black">WatchList</h2>
+      <h2 class="md:pt-8 md:ml-4 md:text-5xl text-4xl font-black">WatchList</h2>
     </div>
 
-    <div class="watchlist flex flex-wrap justify-center pt-20">
-      <p class="mb-20 text-center">Your watchlist is empty!<br><a href="/movie.html" class="text-blue-500 italic">Add a Movie</a></p>
+    <div class="watchlist md:flex md:flex-wrap md:justify-center pt-10 grid grid-cols-3 text-center">
+      <p class="absolute mx-auto text-center right-0 left-0 top-72 text-lg font-base">Your watchlist is empty!<br><a href="/movie.html" class="text-blue-500 italic">Add a Movie</a></p>
     </div>
 
+    <div class="pb-60">
+
+    </div>
     <footer class="footer w-full bg-primary h-[400px] absolute mt-10">
-      <div class="text-white pt-10 px-20">
-        <h3 class="font-bold text-xl pb-2">INETZ Trailer dan Detail</h3>
-        <p class="text-red-500">INETZ <span class="text-white">adalah website untuk melihat trailer dan details film saja karena situs ini tidak memiliki resmi untuk  menayangkan film yang anda cari, karena kalo tidak resmi itu disebut ilegal dan melanggar peraturan diperfilm-an. Situs kami ini benar - benar legal dikarenakan trailer yang kita ambil juga dari pihak ketiga seperti youtube dan yang lain nya.</span></p>
+      <div class="text-white pt-10 md:px-20 px-8">
+        <h3 class="font-bold text-xl pb-2">INETZ</h3>
+        <p class="text-red-500 md:text-base text-sm">INETZ <span class="text-white">INETZ adalah website yang menyajikan informasi mengenai detail film atau tv show mulai dari pemeran, sinopsis, hingga trailer. Situs ini menggunakan Youtube sebagai media untuk penayangan trailer dan IMDB sebagai acuan data. Website ini dapat diakses secara gratis, dimana saja, dan kapan saja.</span></p>
       </div>
   </footer>
 

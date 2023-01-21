@@ -40,44 +40,43 @@ $(document).ready(() => {
 
 function getMovies(searchText, page = 1) {
   let url = `${baseURL}search/movie?api_key=${API_KEY}&query=${searchText}&language=en-US&include_adult=false&page=${page}`;
+  let urlTV = `${baseURL}search/tv?api_key=${API_KEY}&query=${searchText}&language=en-US&include_adult=false&page=${page}`;
+  let output = "";
+  let pageinate = "";
+  let searchfor = "";
 
   $.ajax({
     method: "GET",
     url: url,
 
     success: function (data) {
-      let output = "";
-      let pageinate = "";
-      let searchfor = "";
-
       if (data["results"].length > 0) {
         for (let i = 0; i < data["results"].length; i++) {
           let posterPath = data["results"][i]["poster_path"];
 
           searchfor = `
-          <div class="text-white bg-red-500 w-fit ml-20 px-6 py-4 rounded-lg">
-          <h1>Search results for : "${searchText}"</h1>
+          <div class="text-white bg-red-500 w-fit md:ml-16 ml-8 md:px-6 md:py-4 py-2 px-4 rounded-lg">
+          <h1 class="md:text-base text-sm">Search results for : "${searchText}"</h1>
           </div>
       `;
           $(".searchfor").html(searchfor);
 
           output += `
-          <button class="detailsButton m-6" onclick="selectedMovie('${data["results"][i]["id"]}')">
+          <button class="detailsButton m-6 hover:scale-125 ease-out duration-200" onclick="selectedMovie('${data["results"][i]["id"]}')">
           <div class="movie relative w-min h-full overflow-hidden">
-              <img class="image rounded-lg block min-w-[180px] max-h-[250px] text-md text-center" src=${imageURL + String(posterPath)} alt="No image found." loading="lazy">
+              <img class="image rounded-lg block md:min-w-[180px] md:max-h-[250px] min-w-[80px] max-h-[300px] text-md text-center shadow-xl" src=${imageURL + String(posterPath)} alt="No image found." loading="lazy">
 
               <div class="ratingFlex font-bold leading px-2">
-                  <h4 class="title pt-2 font-black">${data["results"][i]["title"]}</h4>
+                  <h4 class="title pt-2 font-black md:text-base text-xs">${data["results"][i]["title"]}</h4>
                   </div>
               <div class="absolute top-0 left-0 flex bg-black bg-opacity-60 rounded-tl-lg rounded-br-lg py-0.5">
-                <span class="text-sm font-bold text-yellow-300 pt-0.5 px-2">★</span>
-                  <span class="rating  text-white mr-3">${data["results"][i]["vote_average"]}</span>
+              <span class="md:text-sm text-xs font-bold text-yellow-300 pt-0.5 px-2">★</span>
+              <span class="rating  text-white mr-3 md:text-base text-xs">${data["results"][i]["vote_average"]}</span>
                   </div>
           </div>
           </button>
                     `;
           $(".result").html(output);
-          $("footer").show();
         }
         pageinate = `
                     <button class="prevBtn my-4 mx-2 px-2 py-1 bg-red-500 text-white font-bold rounded-lg" onclick="prevBtn()">Prev</button>
@@ -96,6 +95,36 @@ function getMovies(searchText, page = 1) {
 
       sessionStorage.setItem("searchText", searchText);
       getPagination(data["page"], data["total_pages"]);
+    },
+  });
+
+  $.ajax({
+    url: urlTV,
+    method: "GET",
+
+    success: function (recomm) {
+      if (recomm["results"].length > 0) {
+        for (let i = 0; i < recomm["results"].length; i++) {
+          let posterPath = recomm["results"][i]["poster_path"];
+
+          output += `
+          
+          <button class="detailsButton m-6 hover:scale-125 ease-out duration-200" onclick="selectedTV('${recomm["results"][i]["id"]}')">
+          <div class="movie relative w-min h-full overflow-hidden">
+              <img class="recommImage rounded-lg block md:min-w-[180px] md:max-h-[250px] min-w-[80px] max-h-[300px] text-md text-center shadow-xl" src=${recommImageURL + String(posterPath)} alt="No image found." loading="lazy">
+              <div class="ratingFlex font-bold leading px-2">
+              <h4 class="title pt-2 font-black md:text-base text-xs">${recomm["results"][i]["name"]}</h4>
+              </div>
+              <div class="absolute top-0 left-0 flex bg-black bg-opacity-60 rounded-tl-lg rounded-br-lg py-0.5">
+              <span class="md:text-sm text-xs font-bold text-yellow-300 pt-0.5 px-2">★</span>
+              <span class="rating  text-white mr-3 md:text-base text-xs">${recomm["results"][i]["vote_average"]}</span>
+                  </div>
+              </div>
+              </button>
+                    `;
+          $(".result").html(output);
+        }
+      }
     },
   });
 }
@@ -218,7 +247,7 @@ async function getMovieDetails() {
       showDetails += `
       
       <div class="bg-black bg-opacity-40 pb-6 bg-gradient-to-t from-black to-transparent">
-      <img class="img-fluid absolute -z-10 md:h-[1040px] h-[1210px] w-full truncate" src="https://image.tmdb.org/t/p/original/${details.backdrop_path}" alt="">
+      <img class="img-fluid absolute -z-10 md:max-h-full object-cover h-[1200px] w-full truncate" src="https://image.tmdb.org/t/p/original/${details.backdrop_path}" alt="">
       <div class="movieTitle md:text-6xl text-3xl font-extrabold text-white mt-20 px-4 w-full bg-gradient-to-b from-black to-transparent py-8">
           <p class="ml-5">${details["title"]}</p>
       
@@ -233,11 +262,11 @@ async function getMovieDetails() {
       <img class="h-56 w-full object-cover md:h-96 md:w-80 rounded-xl" src="${imageURL + String(postPath)}" alt="No image found." loading="lazy">
     </div>
     <div class="p-8 bg-white bg-opacity-10 rounded-xl shadow-md overflow-hidden md:max-w-6xl">
-    <iframe class="rounded-xl mx-auto mb-4 w-[560px] md:w-[800px]" width="800" height="315" src="https://www.youtube.com/embed/${movie_trailer}?autoplay=1" title="${
+    <iframe class="rounded-md mx-auto mb-4 w-full h-56 object-cover md:h-[420px] md:w-[745px]" width="700" height="415" src="https://www.youtube.com/embed/${movie_trailer}?autoplay=1" title="${
         details["title"]
       }" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       <div class="uppercase tracking-wide text-sm text-gray-200 mb-2 font-semibold">Details</div>
-      <hr class="border-gray-800">
+      <hr class="border-gray-600">
       <div class="text-white">
       <p class="pt-2"><strong>Genre: </strong>${genres}</p>
       <p><strong>Runtime: </strong>${details["runtime"]} min</p>
@@ -247,8 +276,8 @@ async function getMovieDetails() {
       <p><strong>Production Country: </strong>${prod_country}</p>
       <p><strong>Production Company: </strong>${prod_company}</p>
       <div class="moviePeople py-2">
-          <h2 class="castTitle pb-2 font-extrabold"></h2>
-          <hr class="border-gray-800 pt-2">
+          <h2 class="castTitle uppercase tracking-wide text-sm text-gray-200 mb-2 font-semibold"></h2>
+          <hr class="border-gray-600 pt-2">
           <p class="cast"></p>
           <p class="writer"></p>
           <p class="director"></p>
@@ -257,8 +286,8 @@ async function getMovieDetails() {
       </div>
       
                           <div class="moviePlot pt-2">
-                              <h2 class="font-extrabold pb-2">Plot</h2>
-                              <hr class="border-gray-800 pt-2">
+                              <h2 class="uppercase tracking-wide text-sm text-gray-200 mb-2 font-semibold">Plot</h2>
+                              <hr class="border-gray-600 pt-2">
                               <p>${details["overview"]}</p>
                           </div>
                               </div>
@@ -318,7 +347,7 @@ async function getTVdetails() {
 
       showDetails += `
       <div class="bg-black bg-opacity-40 pb-6 bg-gradient-to-t from-black to-transparent">
-      <img class="img-fluid absolute -z-10 md:h-[900px] h-[1210px] w-full truncate" src="https://image.tmdb.org/t/p/original/${tv.backdrop_path}" alt="">
+      <img class="img-fluid absolute -z-10 md:max-h-full object-cover h-[1010px] w-full truncate" src="https://image.tmdb.org/t/p/original/${tv.backdrop_path}" alt="">
       <div class="movieTitle md:text-6xl text-3xl font-extrabold text-white mt-20 px-4 w-full bg-gradient-to-b from-black to-transparent py-8">
                     <p class="ml-5">${tv["name"]}</p>
                     <button class="watchButton bg-red-500 rounded-lg ml-5 mt-0 text-base px-2 py-1" 
@@ -333,12 +362,12 @@ async function getTVdetails() {
     <div class="md:shrink-0 md:mr-3 md:mt-32 mb-4">
       <img class="h-56 w-full object-cover md:h-96 md:w-80 rounded-xl" src="${imageURL + String(postPath)}" alt="No image found." loading="lazy">
     </div>
-    <div class="p-8 bg-white  bg-opacity-10 rounded-xl shadow-md overflow-hidden md:max-w-6xl">
-    <iframe class="rounded-xl mx-auto mb-4 w-[560px] md:w-[800px]" width="800" height="315" src="https://www.youtube.com/embed/${tv_trailer}?autoplay=1" title="${
+    <div class="md:p-8 p-2 md:bg-white  md:bg-opacity-10 rounded-xl shadow-md overflow-hidden md:max-w-6xl">
+    <iframe class="rounded-md mx-auto mb-4 w-full h-56 object-cover md:h-[420px] md:w-[745px]" width="700" height="415" src="https://www.youtube.com/embed/${tv_trailer}?autoplay=1" title="${
         tv["name"]
       }" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       <div class="uppercase tracking-wide text-sm text-gray-200 mb-2 font-semibold">Details</div>
-      <hr class="border-gray-800 pb-2">
+      <hr class="border-gray-600 pb-2">
       <div class="text-white">
       <p><strong>Genre: </strong>${genres}</p>
       <p><strong>Aired on: </strong>${tv["first_air_date"]}</p>
@@ -349,19 +378,10 @@ async function getTVdetails() {
       <p><strong>Production Country: </strong>${prod_country}</p>
       <p><strong>Production Company: </strong>${prod_company}</p>
       
-      <div class="moviePeople py-2">
-          <h2 class="castTitle pb-2 font-extrabold"></h2>
-          <hr class="border-gray-800 pt-2">
-          <p class="cast"></p>
-          <p class="writer"></p>
-          <p class="director"></p>
-          <p class="producer"></p>
-          <p class="music"></p>
-      </div>
       
       <div class="moviePlot pt-2">
-      <h2 class="font-extrabold pb-2">Plot</h2>
-      <hr class="border-gray-800 pt-2">
+      <h2 class="uppercase tracking-wide text-sm text-gray-200 mb-2 font-semibold">Plot</h2>
+      <hr class="border-gray-600 pt-2">
       <p>${tv["overview"]}</p>
       </div>
       </div>
@@ -415,14 +435,14 @@ function showWatchlist() {
           <button class="detailsButton" onclick="removeFromWatched('${w_title}')">Remove</button>
           </div>
           <button class="detailsButton" onclick="selectedMovie('${details["id"]}')">
-              <img class="image rounded-lg block min-w-[180px] max-h-[250px] text-md text-center" src=${imageURL + String(w_poster)} alt="No image found." loading="lazy">
+              <img class="image rounded-lg block md:min-w-[180px] md:max-h-[250px] min-w-[80px] max-h-[300px] text-md text-center shadow-xl" src=${imageURL + String(w_poster)} alt="No image found." loading="lazy">
 
               <div class="ratingFlex font-bold leading px-2">
                   <h4 class="title">${w_title}</h4>
                   </div>
-              <div class="absolute top-0 left-0 flex bg-black bg-opacity-60 rounded-tl-lg rounded-br-lg py-0.5">
+              <div class="md:absolute hidden top-0 left-0 md:flex bg-black bg-opacity-60 rounded-tl-lg rounded-br-lg py-0.5">
                 <span class="text-sm font-bold text-yellow-300 pt-0.5 px-2">★</span>
-                  <span class="rating  text-white mr-3">${w_rating}</span>
+                  <span class="rating  text-white mr-3 md:text-base text-xs">${w_rating}</span>
                   </div>
                   </button>
           </div>
@@ -449,14 +469,14 @@ function showWatchlist() {
           <button class="detailsButton" onclick="removeFromWatched('${w_title}')">Remove</button>
           </div>
           <button class="detailsButton" onclick="selectedTV('${tv["id"]}')">
-              <img class="image rounded-lg block min-w-[180px] max-h-[250px] text-md text-center" src=${imageURL + String(w_poster)} alt="No image found." loading="lazy">
+              <img class="image rounded-lg block md:min-w-[180px] md:max-h-[250px] min-w-[80px] max-h-[300px] text-md text-center shadow-xl" src=${imageURL + String(w_poster)} alt="No image found." loading="lazy">
 
               <div class="ratingFlex font-bold leading px-2">
-                  <h4 class="title">${w_title}</h4>
+                  <h4 class="title pt-2 font-bold md:text-base text-xs">${w_title}</h4>
                   </div>
-              <div class="absolute top-0 left-0 flex bg-black bg-opacity-60 rounded-tl-lg rounded-br-lg py-0.5">
+              <div class="md:absolute hidden top-0 left-0 md:flex bg-black bg-opacity-60 rounded-tl-lg rounded-br-lg py-0.5">
                 <span class="text-sm font-bold text-yellow-300 pt-0.5 px-2">★</span>
-                  <span class="rating  text-white mr-3">${w_rating}</span>
+                  <span class="rating  text-white mr-3 md:text-base text-xs">${w_rating}</span>
                   </div>
                   </button>
           </div>
@@ -654,7 +674,7 @@ function getMovieRecommendations() {
           <button class="detailsButton text-white" onclick="selectedMovie('${recomm["results"][i]["id"]}')">
                         <div class="movie text-white">
                             <img class="recommImage w-[160px] h-[200px] rounded-lg" src=${recommImageURL + String(posterPath)} alt="No image found." loading="lazy">
-                            <h4 class="title text-sm w-[160px]">${recomm["results"][i]["title"]}</h4>
+                            <h4 class="title text-sm w-[160px] pt-2">${recomm["results"][i]["title"]}</h4>
                             </div>
                             </button>
                     `;
@@ -688,7 +708,7 @@ function getTVrecommendations() {
           <button class="detailsButton text-white" onclick="selectedTV('${recomm["results"][i]["id"]}')">
           <div class="movie text-white">
               <img class="recommImage w-[160px] h-[200px] rounded-lg" src=${recommImageURL + String(posterPath)} alt="No image found." loading="lazy">
-              <h4 class="title text-sm w-[160px]">${recomm["results"][i]["name"]}</h4>
+              <h4 class="title text-sm w-[160px] pt-2"">${recomm["results"][i]["name"]}</h4>
               </div>
               </button>
                     `;
@@ -723,7 +743,7 @@ function getMovieReviews() {
           date = date.split("T");
 
           showReview += `
-                        <div class="reviewDetails text-white md:mx-40 bg-white bg-opacity-10 pb-2 rounded-lg mx-8">
+                        <div class="reviewDetails text-white md:mx-40 border border-white bg-opacity-10 pb-2 rounded-lg mx-8">
                             <div class="reviewFlex pl-4 py-2 text-black w-full bg-white rounded-lg mb-4">
                                 <div class="author font-bold">${name}</div>
                                 <div class="date text-sm">${date[0]}</div>
@@ -763,7 +783,7 @@ function getTVreviews() {
           date = date.split("T");
 
           showReview += `
-          <div class="reviewDetails text-white md:mx-40 bg-white bg-opacity-10 pb-2 rounded-lg mx-8">
+          <div class="reviewDetails text-white md:mx-40 border border-white bg-opacity-10 pb-2 rounded-lg mx-8">
                             <div class="reviewFlex pl-4 py-2 text-black w-full bg-white rounded-lg mb-4">
                                 <div class="author font-bold">${name}</div>
                                 <div class="date text-sm">${date[0]}</div>
@@ -847,16 +867,16 @@ function showMovieByGenre(genre_id, page = 1) {
           let posterPath = discover["results"][i]["poster_path"];
 
           output += `
-          <button class="detailsButton m-6" onclick="selectedMovie('${discover["results"][i]["id"]}')">
-          <div class="movie relative w-min h-full overflow-hidden">
-              <img class="image rounded-lg block min-w-[180px] max-h-[250px] text-md text-center shadow-xl" src=${imageURL + String(posterPath)} alt="No image found." loading="lazy">
+          <button class="detailsButton hover:scale-125 ease-out duration-200" onclick="selectedMovie('${discover["results"][i]["id"]}')">
+          <div class="movie relative m-6 mb-4 w-min h-full overflow-hidden">
+              <img class="image rounded-lg block md:min-w-[180px] md:max-h-[250px] min-w-[80px] max-h-[300px] text-md text-center shadow-xl" src=${imageURL + String(posterPath)} alt="No image found." loading="lazy">
 
               <div class="ratingFlex font-bold leading px-2">
-                  <h4 class="title pt-2 font-black">${discover["results"][i]["title"]}</h4>
+                  <h4 class="title pt-2 font-bold md:text-base text-xs">${discover["results"][i]["title"]}</h4>
                   </div>
               <div class="absolute top-0 left-0 flex bg-black bg-opacity-60 rounded-tl-lg rounded-br-lg py-0.5">
-                <span class="text-sm font-bold text-yellow-300 pt-0.5 px-2">★</span>
-                  <span class="rating  text-white mr-3">${discover["results"][i]["vote_average"]}</span>
+              <span class="md:text-sm text-xs font-bold text-yellow-300 pt-0.5 px-2">★</span>
+              <span class="rating  text-white mr-3 md:text-base text-xs">${discover["results"][i]["vote_average"]}</span>
                   </div>
           </div>
           </button>
@@ -918,16 +938,16 @@ function showMovieByCategory(category, page = 1) {
           let posterPath = cat["results"][i]["poster_path"];
 
           output += `
-          <button class="detailsButton m-6" onclick="selectedMovie('${cat["results"][i]["id"]}')">
-          <div class="movie relative w-min h-full overflow-hidden">
-              <img class="image rounded-lg block min-w-[180px] max-h-[250px] text-md text-center shadow-xl" src=${imageURL + String(posterPath)} alt="No image found." loading="lazy">
+          <button class="detailsButton hover:scale-125 ease-out duration-200" onclick="selectedMovie('${cat["results"][i]["id"]}')">
+          <div class="movie relative m-6 mb-4 w-min h-full overflow-hidden">
+              <img class="image rounded-lg block md:min-w-[180px] md:max-h-[250px] min-w-[80px] max-h-[300px] text-md text-center shadow-xl" src=${imageURL + String(posterPath)} alt="No image found." loading="lazy">
 
               <div class="ratingFlex font-bold leading px-2">
-                  <h4 class="title pt-2 font-black">${cat["results"][i]["title"]}</h4>
+                  <h4 class="title pt-2 font-bold md:text-base text-xs">${cat["results"][i]["title"]}</h4>
                   </div>
               <div class="absolute top-0 left-0 flex bg-black bg-opacity-60 rounded-tl-lg rounded-br-lg py-0.5">
-                <span class="text-sm font-bold text-yellow-300 pt-0.5 px-2">★</span>
-                  <span class="rating  text-white mr-3">${cat["results"][i]["vote_average"]}</span>
+              <span class="md:text-sm text-xs font-bold text-yellow-300 pt-0.5 px-2">★</span>
+              <span class="rating  text-white mr-3 md:text-base text-xs">${cat["results"][i]["vote_average"]}</span>
                   </div>
           </div>
           </button>
@@ -1010,16 +1030,16 @@ function showMovieByTypeTime(appendType, appendTime, page = 1) {
           let posterPath = trend["results"][i]["poster_path"];
 
           output += `
-          <button class="detailsButton m-6" onclick="selectedMovie('${trend["results"][i]["id"]}')">
+          <button class="detailsButton m-6 hover:scale-125 ease-out duration-200" onclick="selectedMovie('${trend["results"][i]["id"]}')">
           <div class="movie relative w-min h-full overflow-hidden">
-              <img class="image rounded-lg block min-w-[180px] max-h-[250px] text-md text-center shadow-xl" src=${imageURL + String(posterPath)} alt="No image found." loading="lazy">
+              <img class="image rounded-lg block md:min-w-[180px] md:max-h-[250px] min-w-[80px] max-h-[300px] text-md text-center shadow-xl" src=${imageURL + String(posterPath)} alt="No image found." loading="lazy">
 
               <div class="ratingFlex font-bold leading px-2">
-                  <h4 class="title pt-2 font-black">${trend["results"][i]["title"]}</h4>
+                  <h4 class="title pt-2 font-bold md:text-base text-xs">${trend["results"][i]["title"]}</h4>
                   </div>
               <div class="absolute top-0 left-0 flex bg-black bg-opacity-60 rounded-tl-lg rounded-br-lg py-0.5">
-                <span class="text-sm font-bold text-yellow-300 pt-0.5 px-2">★</span>
-                  <span class="rating  text-white mr-3">${trend["results"][i]["vote_average"]}</span>
+                <span class="md:text-sm text-xs font-bold text-yellow-300 pt-0.5 px-2">★</span>
+                  <span class="rating  text-white mr-3 md:text-base text-xs">${trend["results"][i]["vote_average"]}</span>
                   </div>
           </div>
           </button>
@@ -1029,16 +1049,16 @@ function showMovieByTypeTime(appendType, appendTime, page = 1) {
           let posterPath = trend["results"][i]["poster_path"];
 
           output += `
-          <button class="detailsButton" onclick="selectedTV('${trend["results"][i]["id"]}')">
+          <button class="detailsButton hover:scale-125 ease-out duration-200" onclick="selectedTV('${trend["results"][i]["id"]}')">
           <div class="movie relative m-6 mb-4 w-min h-full overflow-hidden">
-              <img class="image rounded-lg block min-w-[180px] max-h-[250px] text-md text-center" src=${imageURL + String(posterPath)} alt="No image found." loading="lazy">
+              <img class="image rounded-lg block md:min-w-[180px] md:max-h-[250px] min-w-[80px] max-h-[300px] text-md text-center shadow-xl" src=${imageURL + String(posterPath)} alt="No image found." loading="lazy">
 
               <div class="ratingFlex font-bold leading px-2">
-                  <h4 class="title">${name}</h4>
+                  <h4 class="title pt-2 font-bold md:text-base text-xs">${name}</h4>
                   </div>
               <div class="absolute top-0 left-0 flex bg-black bg-opacity-60 rounded-tl-lg rounded-br-lg py-0.5">
-                <span class="text-sm font-bold text-yellow-300 pt-0.5 px-2">★</span>
-                  <span class="rating  text-white mr-3">${trend["results"][i]["vote_average"]}</span>
+              <span class="md:text-sm text-xs font-bold text-yellow-300 pt-0.5 px-2">★</span>
+              <span class="rating  text-white mr-3 md:text-base text-xs">${trend["results"][i]["vote_average"]}</span>
                   </div>
           </div>
           </button>
@@ -1048,13 +1068,13 @@ function showMovieByTypeTime(appendType, appendTime, page = 1) {
           let profilePath = trend["results"][i]["profile_path"];
 
           output += `
-          <button>
+          <button class="m-6 hover:scale-125 ease-out duration-200">
           <a href="https://www.google.com/search?q=${name}" target="_blank">
                        <div class="movie relative m-6 mb-4 w-min h-full overflow-hidden">
-              <img class="image rounded-lg block min-w-[180px] max-h-[250px] text-md text-center" src=${imageURL + String(profilePath)} alt="No image found." loading="lazy">
+              <img class="image rounded-lg block md:min-w-[180px] md:max-h-[250px] min-w-[80px] max-h-[300px] text-md text-center shadow-xl" src=${imageURL + String(profilePath)} alt="No image found." loading="lazy">
 
               <div class="ratingFlex font-bold leading px-2">
-                  <h4 class="title">${name}</h4>
+                  <h4 class="title pt-2 font-bold md:text-base text-xs">${name}</h4>
                   </div>
                   </a>
                   </button>

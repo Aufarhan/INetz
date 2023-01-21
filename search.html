@@ -14,15 +14,40 @@
     <title>INETZ</title>
   </head>
 
-  <body>
+  <body class="bg-gradient-to-tr from-red-700 via-red-800 to-red-600">
     <!-- NavBar Starts -->
     <header class=" relative">
       <nav class="fixed top-0 left-0 right-0 h-20 bg-white z-50 px-2 py-4">
-        <div class="px-4 mx-auto relative flex items-center">
+        <section class="p-menu1 md:hidden block">
+          <a href="/index.html">
+            <h1 class="text-3xl text-red-500 font-bold absolute right-10 md:hidden block ml-6">INETZ</h1>
+        </a>
+          <nav id="navbar" class="navigation" role="navigation">
+            <input id="toggle1" type="checkbox" />
+            <label class="hamburger1" for="toggle1">
+              <div class="top"></div>
+              <div class="meat"></div>
+              <div class="bottom"></div>
+            </label>
+          
+            <nav class="menu1 bg-red-500 grid grid-row-2 list-none clear-both w-full shadow-xl  px-6 rounded-b-lg">
+                <a href="/search.html" class="relative mt-0">
+                  <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <svg aria-hidden="true" class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                  </div>
+                  <input type="search" autocomplete="off" class="md:hidden rounded-full shadow-lg w-80 p-3 pl-12 text-sm text-gray-900 border border-gray-300 rounded- bg-gray-50 focus:ring-blue-500 focus:border-blue-500 " placeholder="Search Films..." required>
+                </a>
+              <a class="link1 font-semibold text-white" href="/movie.html">Movie</a>
+              <a class="link1 font-semibold text-white" href="/trending.html">Trending</a>
+              <a class="link1 font-semibold text-white" href="/watchlist.html">My Watchlist</a>
+            </nav>
+        </nav>
+        </section>
+        <div class="px-4 mx-auto relative flex items-center p-1">
           <div>
             <a href="/index.html">
-              <h1 class="text-3xl text-red-500 font-bold">INETZ</h1>
-          </a>
+              <h1 class="text-3xl text-red-500 font-bold md:block hidden">INETZ</h1>
+            </a>
           </div>
           <div class="pl-10 pt-2 md:flex space-x-6 hidden lg:text-sm">
             <ul class="navbar-nav flex space-x-7">
@@ -58,20 +83,20 @@
     </header>
     <!-- Navbar Ends -->
 
-    <div class="search text-center mt-60 mx-20 text-5xl font-black">
-      <p class="mb-8">Search for a Movie or TV shows</p>
-      <div class="mx-auto text-center">
-      <form id="searchForm" class="mx-auto text-center">
-        <input type="text" placeholder="Search here..." id="searchInput" autocomplete="off" class="block text-center mx-auto rounded-full px-40 py-2 text-base"/>
+    <div class="search text-center mt-60 md:mt-96 mx-20 text-5xl font-black">
+      <p class="mb-8 text-white">Search for a Movie or TV shows</p>
+      <div class="text-center">
+      <form id="searchForm">
+        <input type="text" placeholder="Search here..." id="searchInput" autocomplete="off" class="text-center border border-red-400 shadow-2xl md:px-40 px-10 py-4 rounded-xl text-base"/>
       </form>
     </div>
     </div>
 
-    <div class="searchfor  mt-10"></div>
+    <div class="searchfor md:ml-4 mt-10"></div>
 
-    <div class="result flex flex-wrap justify-center mt-4"></div>
+    <div class="result flex flex-wrap justify-center mt-4 text-white"></div>
 
-    <div class="pagination text-center px-2 "></div>
+    <div class="pagination text-center px-2 text-white"></div>
 
     <footer class="footer"></footer>
 
